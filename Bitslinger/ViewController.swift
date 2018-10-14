@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     // Calculator Display
     @IBOutlet weak var label: UILabel!
+   
     
     // AC/C button
     @IBOutlet weak var clear: UIButton!
@@ -55,6 +56,10 @@ class ViewController: UIViewController {
             thirdOp.setTitle(MINUS, for: .normal);
             fourthOp.setTitle(PLUS, for: .normal);
         }
+        firstOp.backgroundColor = UIColor(hexString: "#abc7e4");
+        secondOp.backgroundColor = UIColor(hexString: "#abc7e4");
+        thirdOp.backgroundColor = UIColor(hexString: "#abc7e4");
+        fourthOp.backgroundColor = UIColor(hexString: "#abc7e4");
     }
     
     // Function to clear
@@ -66,6 +71,11 @@ class ViewController: UIViewController {
         previousNum = 0;
         operation = 0;
         cleared = true;
+        
+        firstOp.backgroundColor = UIColor(hexString: "#abc7e4");
+        secondOp.backgroundColor = UIColor(hexString: "#abc7e4");
+        thirdOp.backgroundColor = UIColor(hexString: "#abc7e4");
+        fourthOp.backgroundColor = UIColor(hexString: "#abc7e4");
     }
     
     @IBAction func operations(_ sender: UIButton) {
@@ -75,94 +85,103 @@ class ViewController: UIViewController {
         str.removeFirst();
         
         if (operation == 0){
-            previousNum = Int( str, radix:16 )!;
+            previousNum = Int( str, radix:HEX )!;
         }
         else{
-            numScreen = Int( str, radix:16 )!;
+            numScreen = Int( str, radix:HEX )!;
         }
         
-        if( sender.tag == 24) {
-            
-            if( operation == 20) {
+        // Display result
+        if( sender.tag >= 20 && sender.tag <= 24) {
+            if( bitwise == false ) {
+            switch operation {
+            case 20:
                 if( numScreen ==  0 ) {
-                    label.text = "0X0";
+                    label.text = DEFSTR;
                 } else {
-                    label.text = PREFIX + String( previousNum / numScreen, radix: 16, uppercase: true );
+                    label.text = PREFIX + String( previousNum / numScreen, radix: HEX, uppercase: true );
                 }
-            } else if( operation == 21 ) {
-                label.text = PREFIX + String( previousNum * numScreen, radix: 16, uppercase: true );
-            } else if( operation == 22 ) {
-                label.text = PREFIX + String( previousNum - numScreen, radix: 16, uppercase: true );
-            } else if( operation == 23 ) {
-                label.text = PREFIX + String( previousNum + numScreen, radix: 16, uppercase: true );
+                firstOp.backgroundColor = UIColor(hexString: "#abc7e4");
+            case 21:
+                 label.text = PREFIX + String( previousNum * numScreen, radix: HEX, uppercase: true );
+                 secondOp.backgroundColor = UIColor(hexString: "#abc7e4");
+            case 22:
+                 label.text = PREFIX + String( previousNum - numScreen, radix: HEX, uppercase: true );
+                 thirdOp.backgroundColor = UIColor(hexString: "#abc7e4");
+            case 23:
+                 label.text = PREFIX + String( previousNum + numScreen, radix: HEX, uppercase: true );
+                 fourthOp.backgroundColor = UIColor(hexString: "#abc7e4");
+            case 24:
+                    operation = 0;
+            default:
+                cleared = false;
+                }
             }
-            
-            if( firstOp.backgroundColor == UIColor.red ) {
-                firstOp.backgroundColor = UIColor.blue;
-            } else if ( secondOp.backgroundColor == UIColor.red ) {
-                secondOp.backgroundColor = UIColor.blue;
-            } else if ( thirdOp.backgroundColor == UIColor.red ) {
-                thirdOp.backgroundColor = UIColor.blue;
-            } else if ( fourthOp.backgroundColor == UIColor.red ) {
-                fourthOp.backgroundColor = UIColor.blue;
+            else if( bitwise == true ) {
+                switch operation {
+                case 20:
+                    label.text = PREFIX + String( previousNum & numScreen, radix: HEX, uppercase: true );
+                    firstOp.backgroundColor = UIColor(hexString: "#abc7e4");
+                case 21:
+                    label.text = PREFIX + String( previousNum | numScreen, radix: HEX, uppercase: true );
+                    secondOp.backgroundColor = UIColor(hexString: "#abc7e4");
+                case 22:
+                    label.text = PREFIX + String( ~(previousNum | numScreen ), radix: HEX, uppercase: true );
+                    thirdOp.backgroundColor = UIColor(hexString: "#abc7e4");
+                case 23:
+                    label.text = PREFIX + String( previousNum ^ numScreen, radix: HEX, uppercase: true );
+                    fourthOp.backgroundColor = UIColor(hexString: "#abc7e4");
+                case 24:
+                    operation = 0;
+                default:
+                    cleared = false;
+                
             }
-            startNew = true;
+        }
+        }
+        
+        startNew = true;
+        
+        // Check if operation is =
+        if( sender.tag == 24) {
             operation = 0;
         } else if( sender.tag >= 20 && sender.tag <= 23){
-            if( operation == 20) {
-                if( numScreen ==  0 ) {
-                    label.text = "0X0";
-                } else {
-                    label.text = PREFIX + String( previousNum / numScreen, radix: 16, uppercase: true );
-                }
-            } else if( operation == 21 ) {
-                label.text = PREFIX + String( previousNum * numScreen, radix: 16, uppercase: true );
-            } else if( operation == 22 ) {
-                label.text = PREFIX + String( previousNum - numScreen, radix: 16, uppercase: true );
-            } else if( operation == 23 ) {
-                label.text = PREFIX + String( previousNum + numScreen, radix: 16, uppercase: true );
-            }
-            if( firstOp.backgroundColor == UIColor.red ) {
-                firstOp.backgroundColor = UIColor.blue;
-            } else if ( secondOp.backgroundColor == UIColor.red ) {
-                secondOp.backgroundColor = UIColor.blue;
-            } else if ( thirdOp.backgroundColor == UIColor.red ) {
-                thirdOp.backgroundColor = UIColor.blue;
-            } else if ( fourthOp.backgroundColor == UIColor.red ) {
-                fourthOp.backgroundColor = UIColor.blue;
-            }
-            if( sender.tag == 20 ) {
-                firstOp.backgroundColor = UIColor.red;
-            } else if ( sender.tag == 21 ) {
-                secondOp.backgroundColor = UIColor.red;
-            } else if ( sender.tag == 22 ) {
-                thirdOp.backgroundColor = UIColor.red;
-            } else if ( sender.tag == 23 ) {
-                fourthOp.backgroundColor = UIColor.red;
-            }
-            startNew = true;
             operation = sender.tag;
+            switch operation {
+            case 20:
+                firstOp.backgroundColor = UIColor(hexString: "#6dace4");
+            case 21:
+                 secondOp.backgroundColor = UIColor(hexString: "#6dace4");
+            case 22:
+                thirdOp.backgroundColor = UIColor(hexString: "#6dace4");
+            case 23:
+                fourthOp.backgroundColor = UIColor(hexString: "#6dace4");
+            default:
+                cleared = false;
+                
+            }
         }
         str = label.text!;
         str.removeFirst();
         str.removeFirst();
-        previousNum = Int(str, radix:16)!;
+        previousNum = Int(str, radix:HEX)!;
+        
         cleared = false;
     }
     
     @IBAction func numbers(_ sender: UIButton) {
-        
+         label.adjustsFontSizeToFitWidth = true;
         // Check if number is maximum
         if( label.text!.count == 18 ) {
             // Play negative sound
-            return
+            return;
         }
         
         if( cleared ){
             var str = label.text!;
             str.removeFirst();
             str.removeFirst();
-            previousNum = Int( str, radix:16 )!;
+            previousNum = Int( str, radix:HEX )!;
         }
 
         // Check if new number will be entered
@@ -180,7 +199,7 @@ class ViewController: UIViewController {
         str.removeFirst();
         
         // Check if number is 0
-        if( Int(str, radix:16) == 0) {
+        if( Int(str, radix:HEX) == 0) {
             label.text = DEFSTR;
             startNew = true;
         }

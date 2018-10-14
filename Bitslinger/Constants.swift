@@ -25,6 +25,8 @@ let MULTIPLY = "x";
 let MINUS = "-";
 let PLUS = "+";
 
+let HEX = 16;
+
 
 let BITWISE = 101;
 let BASIC = 100;

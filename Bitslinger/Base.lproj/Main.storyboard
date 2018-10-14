@@ -332,9 +332,10 @@
                                     <action selector="numbers:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wlj-H1-Gra"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" preservesSuperviewLayoutMargins="YES" text="0x0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="5PB-0Z-EHe">
-                                <rect key="frame" x="270" y="199" width="123" height="96"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="76"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" text="0X0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="5PB-0Z-EHe">
+                                <rect key="frame" x="20" y="199" width="373" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="75"/>
                                 <color key="textColor" red="0.30574502961082906" green="0.30877220812182737" blue="0.30877220812182737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -364,10 +365,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.94594302663403129" green="0.99162522916854523" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="5PB-0Z-EHe" secondAttribute="trailing" constant="21" id="2mc-6U-0uf"/>
-                            <constraint firstItem="5PB-0Z-EHe" firstAttribute="top" secondItem="woE-3Z-rbK" secondAttribute="bottom" constant="155" id="Lkn-dP-Upp"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="basic" destination="gZJ-bk-HIt" id="G2H-uT-GPU"/>
