@@ -12,174 +12,179 @@ class ViewController: UIViewController {
     
     var numScreen:Int = 0;
     var previousNum:Int = 0;
-    var doingMath = false;
-    var lastOp = false;
     var operation = 0;
     
+    var bitwise = false;
+    var startNew = true;
+    var cleared = true;
+    
+    // Calculator Display
     @IBOutlet weak var label: UILabel!
     
+    // AC/C button
     @IBOutlet weak var clear: UIButton!
     
-    @IBOutlet weak var division: UIButton!
-    @IBOutlet weak var multiplication: UIButton!
-    @IBOutlet weak var minus: UIButton!
-    @IBOutlet weak var plus: UIButton!
+    @IBOutlet weak var basic: UIButton!
+    @IBOutlet weak var bit: UIButton!
     
+    // Four operations
+    @IBOutlet weak var firstOp: UIButton!
+    @IBOutlet weak var secondOp: UIButton!
+    @IBOutlet weak var thirdOp: UIButton!
+    @IBOutlet weak var fourthOp: UIButton!
+    
+    @IBAction func changeMode(_ sender: UIButton) {
+        if( sender.tag == BITWISE ) {
+            bitwise = true;
+            
+            basic.backgroundColor = UIColor(hexString: "#bbdafa")
+            bit.backgroundColor = UIColor(hexString: "#abc7d4")
+            
+            firstOp.setTitle(AND, for: .normal);
+            secondOp.setTitle(OR, for: .normal);
+            thirdOp.setTitle(NOR, for: .normal);
+            fourthOp.setTitle(XOR, for: .normal);
+        } else if( sender.tag == BASIC ) {
+            bitwise = false;
+            
+            bit.backgroundColor = UIColor(hexString: "#bbdafa")
+            basic.backgroundColor = UIColor(hexString: "#abc7d4")
+            
+            firstOp.setTitle(DIVIDE, for: .normal);
+            secondOp.setTitle(MULTIPLY, for: .normal);
+            thirdOp.setTitle(MINUS, for: .normal);
+            fourthOp.setTitle(PLUS, for: .normal);
+        }
+    }
+    
+    // Function to clear
     @IBAction func clear(_ sender: Any ){
+        label.text = DEFSTR;
+        clear.setTitle(AC, for: .normal)
         
-            label.text = "0X0";
-            clear.setTitle("AC", for: .normal)
-            operation = 0;
-        
+        startNew = true;
+        previousNum = 0;
+        operation = 0;
+        cleared = true;
     }
     
     @IBAction func operations(_ sender: UIButton) {
         
-        var Str:String = label.text!;
-        if( Str.count >= 2 ) {
-            Str.removeFirst();
-            Str.removeFirst();
-        }
-        if( sender.tag == 24 && doingMath == true) {
-            
+        var str = label.text!;
+        str.removeFirst();
+        str.removeFirst();
         
-            
-            numScreen = Int(Str, radix:16)!;
-            
-            label.text = "";
+        if (operation == 0){
+            previousNum = Int( str, radix:16 )!;
+        }
+        else{
+            numScreen = Int( str, radix:16 )!;
+        }
+        
+        if( sender.tag == 24) {
             
             if( operation == 20) {
                 if( numScreen ==  0 ) {
                     label.text = "0X0";
                 } else {
-                    label.text = "0X" + String( previousNum / numScreen, radix: 16, uppercase: true );
+                    label.text = PREFIX + String( previousNum / numScreen, radix: 16, uppercase: true );
                 }
             } else if( operation == 21 ) {
-                label.text = "0X" + String( previousNum * numScreen, radix: 16, uppercase: true );
+                label.text = PREFIX + String( previousNum * numScreen, radix: 16, uppercase: true );
             } else if( operation == 22 ) {
-                label.text = "0X" + String( previousNum - numScreen, radix: 16, uppercase: true );
+                label.text = PREFIX + String( previousNum - numScreen, radix: 16, uppercase: true );
             } else if( operation == 23 ) {
-                label.text = "0X" + String( previousNum + numScreen, radix: 16, uppercase: true );
+                label.text = PREFIX + String( previousNum + numScreen, radix: 16, uppercase: true );
             }
             
-            if( division.backgroundColor == UIColor.red ) {
-                division.backgroundColor = UIColor.blue;
-            } else if ( multiplication.backgroundColor == UIColor.red ) {
-                multiplication.backgroundColor = UIColor.blue;
-            } else if ( minus.backgroundColor == UIColor.red ) {
-                minus.backgroundColor = UIColor.blue;
-            } else if ( plus.backgroundColor == UIColor.red ) {
-                plus.backgroundColor = UIColor.blue;
+            if( firstOp.backgroundColor == UIColor.red ) {
+                firstOp.backgroundColor = UIColor.blue;
+            } else if ( secondOp.backgroundColor == UIColor.red ) {
+                secondOp.backgroundColor = UIColor.blue;
+            } else if ( thirdOp.backgroundColor == UIColor.red ) {
+                thirdOp.backgroundColor = UIColor.blue;
+            } else if ( fourthOp.backgroundColor == UIColor.red ) {
+                fourthOp.backgroundColor = UIColor.blue;
             }
-           
-            
-            return;
+            startNew = true;
+            operation = 0;
         } else if( sender.tag >= 20 && sender.tag <= 23){
-            if( division.backgroundColor == UIColor.red ) {
-                division.backgroundColor = UIColor.blue;
-            } else if ( multiplication.backgroundColor == UIColor.red ) {
-                multiplication.backgroundColor = UIColor.blue;
-            } else if ( minus.backgroundColor == UIColor.red ) {
-                minus.backgroundColor = UIColor.blue;
-            } else if ( plus.backgroundColor == UIColor.red ) {
-                plus.backgroundColor = UIColor.blue;
+            if( operation == 20) {
+                if( numScreen ==  0 ) {
+                    label.text = "0X0";
+                } else {
+                    label.text = PREFIX + String( previousNum / numScreen, radix: 16, uppercase: true );
+                }
+            } else if( operation == 21 ) {
+                label.text = PREFIX + String( previousNum * numScreen, radix: 16, uppercase: true );
+            } else if( operation == 22 ) {
+                label.text = PREFIX + String( previousNum - numScreen, radix: 16, uppercase: true );
+            } else if( operation == 23 ) {
+                label.text = PREFIX + String( previousNum + numScreen, radix: 16, uppercase: true );
+            }
+            if( firstOp.backgroundColor == UIColor.red ) {
+                firstOp.backgroundColor = UIColor.blue;
+            } else if ( secondOp.backgroundColor == UIColor.red ) {
+                secondOp.backgroundColor = UIColor.blue;
+            } else if ( thirdOp.backgroundColor == UIColor.red ) {
+                thirdOp.backgroundColor = UIColor.blue;
+            } else if ( fourthOp.backgroundColor == UIColor.red ) {
+                fourthOp.backgroundColor = UIColor.blue;
             }
             if( sender.tag == 20 ) {
-                division.backgroundColor = UIColor.red;
+                firstOp.backgroundColor = UIColor.red;
             } else if ( sender.tag == 21 ) {
-                multiplication.backgroundColor = UIColor.red;
+                secondOp.backgroundColor = UIColor.red;
             } else if ( sender.tag == 22 ) {
-                minus.backgroundColor = UIColor.red;
+                thirdOp.backgroundColor = UIColor.red;
             } else if ( sender.tag == 23 ) {
-                plus.backgroundColor = UIColor.red;
+                fourthOp.backgroundColor = UIColor.red;
             }
-            
-            if( operation != 0 ) {
-                
-                numScreen = Int(Str, radix:16)!;
-                
-                label.text = "";
-                
-                if( operation == 20) {
-                    if( numScreen ==  0 ) {
-                        label.text = "0X0";
-                    } else {
-                        label.text = "0X" + String( previousNum / numScreen, radix: 16, uppercase: true );
-                    }
-                } else if( operation == 21 ) {
-                    label.text = "0X" + String( previousNum * numScreen, radix: 16, uppercase: true );
-                } else if( operation == 22 ) {
-                    label.text = "0X" + String( previousNum - numScreen, radix: 16, uppercase: true );
-                } else if( operation == 23 ) {
-                    label.text = "0X" + String( previousNum + numScreen, radix: 16, uppercase: true );
-                }
-                
-                if( division.backgroundColor == UIColor.red ) {
-                    division.backgroundColor = UIColor.blue;
-                } else if ( multiplication.backgroundColor == UIColor.red ) {
-                    multiplication.backgroundColor = UIColor.blue;
-                } else if ( minus.backgroundColor == UIColor.red ) {
-                    minus.backgroundColor = UIColor.blue;
-                } else if ( plus.backgroundColor == UIColor.red ) {
-                    plus.backgroundColor = UIColor.blue;
-                }
-                
-            }
+            startNew = true;
             operation = sender.tag;
-            
-            if( Str.count >= 2 ) {
-                Str.removeFirst();
-                Str.removeFirst();
-            }
-            
-            previousNum = Int(Str, radix:16)!;
-            
-            doingMath = true;
-            lastOp = true;
-            
         }
+        str = label.text!;
+        str.removeFirst();
+        str.removeFirst();
+        previousNum = Int(str, radix:16)!;
+        cleared = false;
     }
+    
     @IBAction func numbers(_ sender: UIButton) {
-        var newStr:String = "";
         
+        // Check if number is maximum
         if( label.text!.count == 18 ) {
             // Play negative sound
             return
         }
+        
+        if( cleared ){
+            var str = label.text!;
+            str.removeFirst();
+            str.removeFirst();
+            previousNum = Int( str, radix:16 )!;
+        }
+
+        // Check if new number will be entered
+        if( startNew == true ) {
+            label.text = PREFIX + sender.title(for: .normal)!;
     
-        
-        if( label.text == "0X0" || label.text == "" || (doingMath == true && lastOp == true)) {
-            label.text = "0X";
-            clear.setTitle("C", for: .normal)
-            
-            if( lastOp == true ) {
-            lastOp = false;
-            }
+            clear.setTitle(C, for: .normal);
+            startNew = false;
+        } else {
+            label.text = label.text! + sender.title(for: .normal)!;
         }
         
-        if( sender.tag <= 16 && sender.tag >= 2 ) {
-            newStr = label.text! + String(sender.tag-1, radix:16).uppercased();
+        var str = label.text!;
+        str.removeFirst();
+        str.removeFirst();
+        
+        // Check if number is 0
+        if( Int(str, radix:16) == 0) {
+            label.text = DEFSTR;
+            startNew = true;
         }
-        else {
-            if( sender.tag  == 17 || sender.tag == 1 ) {
-                if(label.text != "0X0" && label.text != "0X" ) {
-                    if( sender.tag == 17 ) {
-                        newStr =  label.text! + "00";
-                    } else {
-                        newStr =  label.text! + "0";
-                    }
-                    
-                } else if( label.text == "0X" ){
-                    newStr = "0X0";
-                } else {
-                    return
-                }
-            }
-            else if( sender.tag == 18 ) {
-                newStr =  label.text! + String(255, radix:16).uppercased();
-            }
-        }
-        label.text = newStr;
+        
     }
     
     override func viewDidLoad() {

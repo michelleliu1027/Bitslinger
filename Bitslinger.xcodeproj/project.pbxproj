@@ -15,6 +15,8 @@
 		324766DF217288EF0080D766 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 324766DD217288EF0080D766 /* LaunchScreen.storyboard */; };
 		324766EA217288F00080D766 /* BitslingerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324766E9217288F00080D766 /* BitslingerTests.swift */; };
 		324766F5217288F00080D766 /* BitslingerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324766F4217288F00080D766 /* BitslingerUITests.swift */; };
+		CBC1D9D32172DEF600219D05 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC1D9D22172DEF600219D05 /* Constants.swift */; };
+		CBC1D9D521730CC700219D05 /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC1D9D421730CC700219D05 /* UIColorExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		324766F0217288F00080D766 /* BitslingerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitslingerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		324766F4217288F00080D766 /* BitslingerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitslingerUITests.swift; sourceTree = "<group>"; };
 		324766F6217288F00080D766 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBC1D9D22172DEF600219D05 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CBC1D9D421730CC700219D05 /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 		324766D0217288ED0080D766 /* Bitslinger */ = {
 			isa = PBXGroup;
 			children = (
+				CBC1D9D22172DEF600219D05 /* Constants.swift */,
+				CBC1D9D421730CC700219D05 /* UIColorExt.swift */,
 				324766D1217288ED0080D766 /* AppDelegate.swift */,
 				324766D3217288ED0080D766 /* ViewController.swift */,
 				324766D5217288ED0080D766 /* Main.storyboard */,
@@ -262,6 +268,8 @@
 				324766D4217288ED0080D766 /* ViewController.swift in Sources */,
 				324766D2217288ED0080D766 /* AppDelegate.swift in Sources */,
 				324766DA217288ED0080D766 /* Bitslinger.xcdatamodeld in Sources */,
+				CBC1D9D521730CC700219D05 /* UIColorExt.swift in Sources */,
+				CBC1D9D32172DEF600219D05 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
