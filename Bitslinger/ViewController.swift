@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var previousNum:Int = 0;
     var doingMath = false;
     var lastOp = false;
-    var operation = 23;
+    var operation = 0;
     
     @IBOutlet weak var label: UILabel!
     
@@ -29,25 +29,31 @@ class ViewController: UIViewController {
         
             label.text = "0X0";
             clear.setTitle("AC", for: .normal)
+            operation = 0;
         
     }
     
     @IBAction func operations(_ sender: UIButton) {
         
         var Str:String = label.text!;
+        if( Str.count >= 2 ) {
+            Str.removeFirst();
+            Str.removeFirst();
+        }
         if( sender.tag == 24 && doingMath == true) {
             
-            if( Str.count >= 2 ) {
-                Str.removeFirst();
-                Str.removeFirst();
-            }
+        
             
             numScreen = Int(Str, radix:16)!;
             
             label.text = "";
             
             if( operation == 20) {
-                label.text = "0X" + String( previousNum / numScreen, radix: 16, uppercase: true );
+                if( numScreen ==  0 ) {
+                    label.text = "0X0";
+                } else {
+                    label.text = "0X" + String( previousNum / numScreen, radix: 16, uppercase: true );
+                }
             } else if( operation == 21 ) {
                 label.text = "0X" + String( previousNum * numScreen, radix: 16, uppercase: true );
             } else if( operation == 22 ) {
@@ -56,9 +62,69 @@ class ViewController: UIViewController {
                 label.text = "0X" + String( previousNum + numScreen, radix: 16, uppercase: true );
             }
             
-            doingMath = false;
+            if( division.backgroundColor == UIColor.red ) {
+                division.backgroundColor = UIColor.blue;
+            } else if ( multiplication.backgroundColor == UIColor.red ) {
+                multiplication.backgroundColor = UIColor.blue;
+            } else if ( minus.backgroundColor == UIColor.red ) {
+                minus.backgroundColor = UIColor.blue;
+            } else if ( plus.backgroundColor == UIColor.red ) {
+                plus.backgroundColor = UIColor.blue;
+            }
+           
+            
             return;
         } else if( sender.tag >= 20 && sender.tag <= 23){
+            if( division.backgroundColor == UIColor.red ) {
+                division.backgroundColor = UIColor.blue;
+            } else if ( multiplication.backgroundColor == UIColor.red ) {
+                multiplication.backgroundColor = UIColor.blue;
+            } else if ( minus.backgroundColor == UIColor.red ) {
+                minus.backgroundColor = UIColor.blue;
+            } else if ( plus.backgroundColor == UIColor.red ) {
+                plus.backgroundColor = UIColor.blue;
+            }
+            if( sender.tag == 20 ) {
+                division.backgroundColor = UIColor.red;
+            } else if ( sender.tag == 21 ) {
+                multiplication.backgroundColor = UIColor.red;
+            } else if ( sender.tag == 22 ) {
+                minus.backgroundColor = UIColor.red;
+            } else if ( sender.tag == 23 ) {
+                plus.backgroundColor = UIColor.red;
+            }
+            
+            if( operation != 0 ) {
+                
+                numScreen = Int(Str, radix:16)!;
+                
+                label.text = "";
+                
+                if( operation == 20) {
+                    if( numScreen ==  0 ) {
+                        label.text = "0X0";
+                    } else {
+                        label.text = "0X" + String( previousNum / numScreen, radix: 16, uppercase: true );
+                    }
+                } else if( operation == 21 ) {
+                    label.text = "0X" + String( previousNum * numScreen, radix: 16, uppercase: true );
+                } else if( operation == 22 ) {
+                    label.text = "0X" + String( previousNum - numScreen, radix: 16, uppercase: true );
+                } else if( operation == 23 ) {
+                    label.text = "0X" + String( previousNum + numScreen, radix: 16, uppercase: true );
+                }
+                
+                if( division.backgroundColor == UIColor.red ) {
+                    division.backgroundColor = UIColor.blue;
+                } else if ( multiplication.backgroundColor == UIColor.red ) {
+                    multiplication.backgroundColor = UIColor.blue;
+                } else if ( minus.backgroundColor == UIColor.red ) {
+                    minus.backgroundColor = UIColor.blue;
+                } else if ( plus.backgroundColor == UIColor.red ) {
+                    plus.backgroundColor = UIColor.blue;
+                }
+                
+            }
             operation = sender.tag;
             
             if( Str.count >= 2 ) {
